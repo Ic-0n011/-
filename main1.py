@@ -11,6 +11,8 @@ def make_hero(
         hp_max=None,
         lvl=1,
         xp_now=0,
+        weapon=None,
+        sheald=None,
         attack=1,
         defence=1,
         luck=1,
@@ -33,15 +35,15 @@ def make_hero(
 
     if not inventory:
         inventory = []
-    
-    if not weapon:
-        weapon{
-        "тип": "оружие",
-        "название": "Обычный меч",
-        "атака": "1",
-        "цена": "10",
-        }
 
+    if not weapon:
+        weapon = {
+            "тип": "оружие",
+            "название": "Обычный меч",
+            "стат": 'атака',
+            "модификатор": 2,
+            "цена": 10,
+        }
     return {
         "имя": name,
         "здоровье": hp_now,
@@ -49,30 +51,74 @@ def make_hero(
         "уровень": lvl,
         "опыт": xp_now,
         "опыта осталось": xp_next,
-        "оружие": weapon
+        "оружие": weapon,
         "атака": attack,
         "защита": defence,
+        "оружие": weapon,
+        "щит": sheald,
         "удача": luck,
         "деньги": money,
         "инвентарь": inventory
     }
 
+def equip_item(hero: dict):
+    '''
+    показать пронумерованные предметы 
+        только щиты и оружия? 
+        или все предметы?
 
-show_item(item: dict) -> None:
-    if item['тип'] == "оружие":
-                              #ДОДЕЛАТЬ
+    выбирается предмет:
+        если другой предмет юыл экипирован:
+            положить предмет в инвентарь
+            статы предмета добавляются к статам персонажа
+            оружие персонажа становится выбранным предметом
+            этот предмет исчезает из инвентаря 
+        
+        если никакого предмета не юыло жкипированно:
+            статы предмета добавляются к статам персонажа
+            оружие персонажа становится выбранным предметом
+            этот предмет исчезает из инвентаря 
+    пересчитать статы
+    '''
+    pass
 
+
+def show_item(item: dict) -> None:
+    if item is None:
+        print("-нет-")
+    else:
+        if item['модификатор'] >= 0:
+            print(f"{item['название']} + {item['модификатор']} {item['стат']}")
+        else:
+            print(f"{item['название']} {item['модификатор']} {item['стат']}")
+
+
+def show_equipped(hero: dict) -> None:
+    print("оружие", end=' ')
+    show_item(hero['оружие'])
+    print("щит", end=' ')
+    show_item(hero['щит'])
+
+
+def show_items(items: list) -> None:
+    print("предметы:")
+    for num, item in enumerate(items):
+        print(f"{num}.", end=" ")
+        show_item(item)
+    else:
+        print("-нет-")
 
 def show_hero(hero:dict) -> None:
     print("имя:", hero['имя'])
     print("здоровье:", hero['здоровье'], "/", hero['здоровье макс'])
     print("уровень:", hero['уровень'])
     print("опыт:", hero['опыт'], "/", hero['опыта осталось'])
+    show_equipped(hero)
     print("атака:", hero['атака'])
     print("защита:", hero['защита'])
     print("удача:", hero['удача'])
     print("деньги:", hero['деньги'])
-    print("инвентарь:", hero['инвентарь'])  # TODO: показать предметы и их количество
+    show_items(hero['инвентарь'])
     print("")
 
 
