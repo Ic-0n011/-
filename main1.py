@@ -106,7 +106,7 @@ def show_items(items: list) -> None:
         print(f"{num}.", end=" ")
         show_item(item)
     else:
-        print("-нет-")
+        print("-это конец списка-")
 
 def show_hero(hero:dict) -> None:
     print("имя:", hero['имя'])
@@ -382,3 +382,13 @@ def show_option(hero:dict, options:dict):
             print(f"{num}. {option}")
 
    
+
+
+
+
+
+
+
+
+
+print("у и что ты ожидал здесь увидеть?")
